@@ -15,7 +15,8 @@
       min-height: 100vh;
       overflow-y: auto;
       flex-direction: column;
-      padding-top: 100px; /* espaço para o título */
+      padding-top: 100px;
+      transition: background 0.3s ease;
     }
 
     h1 {
@@ -31,6 +32,12 @@
       line-height: 1.2;
       z-index: 10;
       -webkit-text-stroke: 1px rgba(0,0,0,0.25);
+      transition: opacity 0.4s ease;
+    }
+
+    h1.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     /* ===== Tela de cards ===== */
@@ -80,7 +87,7 @@
 
     .carta-texto {
       font-size: 17px;
-      margin-bottom: 15px; /* espaçamento menor */
+      margin-bottom: 15px;
       color: #333;
       white-space: pre-line;
     }
@@ -107,7 +114,6 @@
       background: #ff9100;
     }
 
-    /* ===== Player Spotify ===== */
     #spotifyPlayer {
       display: none;
       margin-top: 15px;
@@ -130,12 +136,10 @@
 </head>
 <body>
 
-  <h1>Luiz e Dani</h1>
+  <h1 id="titulo">Luiz e Dani</h1>
 
-  <!-- Áudio automático -->
   <audio id="musica" src="musica.mp3" autoplay loop hidden></audio>
 
-  <!-- Tela inicial com os 5 cards -->
   <div class="card-container" id="cardContainer">
     <div class="card" onclick="abrirCarta(1)">Primeiro Mês</div>
     <div class="card" onclick="abrirCarta(2)">Segundo Mês</div>
@@ -144,7 +148,6 @@
     <div class="card" onclick="abrirCarta(5)">Quinto Mês</div>
   </div>
 
-  <!-- Tela da carta -->
   <div class="carta-container" id="cartaContainer">
     <div class="carta-texto" id="textoCarta"></div>
     <button onclick="voltar()">Voltar</button>
@@ -154,8 +157,8 @@
     const cardContainer = document.getElementById("cardContainer");
     const cartaContainer = document.getElementById("cartaContainer");
     const textoCarta = document.getElementById("textoCarta");
+    const titulo = document.getElementById("titulo");
 
-    // Inicia a música (com fallback para navegadores que bloqueiam autoplay)
     window.addEventListener('load', () => {
       const musica = document.getElementById('musica');
       const playPromise = musica.play();
@@ -206,6 +209,7 @@ E a cada dia você me escolhe, mesmo com tudo querendo te obrigar ao contrário,
     };
 
     function abrirCarta(numero) {
+      titulo.classList.add("hidden");
       textoCarta.innerHTML = mensagens[numero];
       cardContainer.style.display = "none";
       cartaContainer.style.display = "flex";
@@ -213,11 +217,11 @@ E a cada dia você me escolhe, mesmo com tudo querendo te obrigar ao contrário,
     }
 
     function voltar() {
+      titulo.classList.remove("hidden");
       cartaContainer.style.display = "none";
       cardContainer.style.display = "grid";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
-
 </body>
 </html>
