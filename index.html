@@ -11,20 +11,26 @@
       background: linear-gradient(135deg, #f8b500, #fceabb);
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow-y: auto;
       flex-direction: column;
+      padding-top: 100px; /* espaço para o título */
     }
 
     h1 {
-      margin: 15px 0;
+      position: fixed;
+      top: 10px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
       color: white;
       font-size: 48px;
       text-shadow: 4px 4px 5px rgba(0,0,0,0.2);
       text-align: center;
       line-height: 1.2;
-      
+      z-index: 10;
+      -webkit-text-stroke: 1px rgba(0,0,0,0.25);
     }
 
     /* ===== Tela de cards ===== */
@@ -35,6 +41,7 @@
       width: 90%;
       max-width: 400px;
       transition: opacity 0.3s ease;
+      margin: 0 auto;
     }
 
     .card {
@@ -59,7 +66,7 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: left;
       width: 90%;
       max-width: 500px;
@@ -67,8 +74,8 @@
       padding: 25px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow-y: auto;
-      max-height: 80vh;
+      margin: 20px auto 40px auto;
+      overflow-y: visible; /* permite ver tudo */
     }
 
     .carta-texto {
@@ -112,12 +119,16 @@
       .card-container {
         grid-template-columns: 1fr;
       }
+      h1 {
+        font-size: 36px;
+      }
+      body {
+        padding-top: 80px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <h1>Luiz e Dani</h1>
 
   <!-- Tela inicial com os 5 cards -->
   <div class="card-container" id="cardContainer">
@@ -134,13 +145,10 @@
     <button onclick="voltar()">Voltar</button>
   </div>
 
-
   <script>
     const cardContainer = document.getElementById("cardContainer");
     const cartaContainer = document.getElementById("cartaContainer");
     const textoCarta = document.getElementById("textoCarta");
-    const spotifyPlayer = document.getElementById("spotifyPlayer");
-    const ativarMusicaBtn = document.getElementById("ativarMusica");
 
     const mensagens = {
       1: `<h2>Nosso primeiro mês</h2>
@@ -160,7 +168,7 @@ Hoje eu guardo e pra sempre vou guardar todos os seus presentes, porque eles sã
       3: `<h2>Nosso terceiro mês</h2>
 Nesse mês eu já estava apaixonado, estava amando e completamente hipnotizado, estava podendo dividir o meu mundo com você e ter o seu mundo sendo dividido comigo, e nele eu compartilhei com você o meu maior medo: trazer alguém até a minha casa.
 
-E você simplesmente entrou nela como se já fosse de casa, entrou da mesma forma que entrou no meu coração — de forma pura e suave. Fez com que a coisa que eu nunca achei que iria um dia conseguir compartilhar com alguém, pudesse ser compartilhada.
+E você simplesmente entrou nela como se já fosse de casa, entrou da mesma forma que entrou no meu coração de forma pura e suave. Fez com que a coisa que eu nunca achei que iria um dia conseguir compartilhar com alguém, pudesse ser compartilhada.
 
 Foi aqui que a gente pôde se tornar um só, se desejar por inteiro, enquanto se enchia de desejo. Aqui transformávamos os dias em noites, tudo pela hipnose de estarmos lado a lado. E toda semana a gente se via, ria, sorria e redescobria o significado de alegria.`,
 
@@ -169,33 +177,29 @@ Aqui, assim como nos outros meses, já sabíamos e tínhamos a certeza de que o 
 
 Amávamos a companhia um do outro e queríamos ela a todo momento: íamos ao cinema juntos, jogávamos juntos, assistíamos filmes juntos. Aqui nós começamos a cada vez mais viver a vida juntos.
 
-Passamos por tempestades, nos afogamos nelas, quebramos nosso barco, reconstruímos ele, e nos sentíamos completos por saber que tínhamos um ao outro. Fomos transformando o nosso amor cada vez mais — mas nunca, nem por um segundo, deixando ele apagar.`,
+Passamos por tempestades, nos afogamos nelas, quebramos nosso barco, reconstruímos ele, e nos sentíamos completos por saber que tínhamos um ao outro. Fomos transformando o nosso amor cada vez mais, mas nunca, nem por um segundo, deixando ele apagar.`,
 
-     5: `<h2>Nosso quinto mês</h2>
-De longe o nosso mês mais desafiador, as tempestades viraram tornados, o barco já não existia mais, era apenas uma ripa de madeira, se afogar já não era mais a exceção começou cada vez mais se tornar a regra.</p>
+      5: `<h2>Nosso quinto mês</h2>
+De longe o nosso mês mais desafiador, as tempestades viraram tornados, o barco já não existia mais, era apenas uma ripa de madeira, se afogar já não era mais a exceção começou cada vez mais se tornar a regra.
 
 E em meio a destroços, feridas, choros, gritos, olhamos um para o outro apenas com uma certeza, a certeza que ainda queriamos ficar, a certeza que queremos melhorar, queremos fazer dar certo, não queremos nos render a tempestades, não precisamos de barcos, não precisamos mais se afogar, pois estamos aprendendo a nadar.
 
-É aqui que começamos a dia após dia fazer a decisão mais dificil, que é se amar, pois no começo se amar não era ainda uma escolha, pois não tinha vento, tempestade e nem tornados, mas quando eles começaram a surgir, se amar e continuar se amando, ficar invés de ir embora, persistir invés de se render, começou a se tornar escolhas.</p>
+É aqui que começamos a dia após dia fazer a decisão mais dificil, que é se amar, pois no começo se amar não era ainda uma escolha, pois não tinha vento, tempestade e nem tornados, mas quando eles começaram a surgir, se amar e continuar se amando, ficar invés de ir embora, persistir invés de se render, começou a se tornar escolhas.
 
-<p>E a cada dia você me escolhe, mesmo com tudo querendo te obrigar ao contrário, e eu faço o mesmo, e não me arrependo, e nunca vou, amei e amo cada segundo que passo com você, em mim você já se tornou eterna, escrevo tudo isso com orgulho de te amar com tudo de mim, grato por cada sorriso que você me dá, e dizendo as três palavras que eu mais amo dizer, eu te amo, feliz nossos 5 meses amor.`
-
+E a cada dia você me escolhe, mesmo com tudo querendo te obrigar ao contrário, e eu faço o mesmo, e não me arrependo, e nunca vou, amei e amo cada segundo que passo com você, em mim você já se tornou eterna, escrevo tudo isso com orgulho de te amar com tudo de mim, grato por cada sorriso que você me dá, e dizendo as três palavras que eu mais amo dizer, eu te amo, feliz nossos 5 meses amor.`
     };
 
     function abrirCarta(numero) {
       textoCarta.innerHTML = mensagens[numero];
       cardContainer.style.display = "none";
       cartaContainer.style.display = "flex";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function voltar() {
       cartaContainer.style.display = "none";
       cardContainer.style.display = "grid";
-    }
-
-    function mostrarSpotify() {
-      spotifyPlayer.style.display = "block";
-      ativarMusicaBtn.style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
 
