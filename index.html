@@ -75,12 +75,12 @@
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       margin: 20px auto 40px auto;
-      overflow-y: visible; /* permite ver tudo */
+      overflow-y: visible;
     }
 
     .carta-texto {
       font-size: 17px;
-      margin-bottom: 20px;
+      margin-bottom: 15px; /* espaçamento menor */
       color: #333;
       white-space: pre-line;
     }
@@ -88,7 +88,7 @@
     .carta-texto h2 {
       text-align: center;
       color: #f8b500;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     button {
@@ -130,6 +130,11 @@
 </head>
 <body>
 
+  <h1>Luiz e Dani</h1>
+
+  <!-- Áudio automático -->
+  <audio id="musica" src="musica.mp3" autoplay loop hidden></audio>
+
   <!-- Tela inicial com os 5 cards -->
   <div class="card-container" id="cardContainer">
     <div class="card" onclick="abrirCarta(1)">Primeiro Mês</div>
@@ -149,6 +154,17 @@
     const cardContainer = document.getElementById("cardContainer");
     const cartaContainer = document.getElementById("cartaContainer");
     const textoCarta = document.getElementById("textoCarta");
+
+    // Inicia a música (com fallback para navegadores que bloqueiam autoplay)
+    window.addEventListener('load', () => {
+      const musica = document.getElementById('musica');
+      const playPromise = musica.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          document.body.addEventListener('click', () => musica.play(), { once: true });
+        });
+      }
+    });
 
     const mensagens = {
       1: `<h2>Nosso primeiro mês</h2>
