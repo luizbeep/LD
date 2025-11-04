@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luiz e Dani</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f8b500, #fceabb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin: 15px 0;
+      color: white;
+      font-size: 48px;
+      text-shadow: 4px 4px 5px rgba(0,0,0,0.2);
+      text-align: center;
+      line-height: 1.2;
+      
+    }
+
+    /* ===== Tela de cards ===== */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      width: 90%;
+      max-width: 400px;
+      transition: opacity 0.3s ease;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+
+    /* ===== Tela da carta ===== */
+    .carta-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+
+    .carta-texto {
+      font-size: 17px;
+      margin-bottom: 20px;
+      color: #333;
+      white-space: pre-line;
+    }
+
+    .carta-texto h2 {
+      text-align: center;
+      color: #f8b500;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #f8b500;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #ff9100;
+    }
+
+    /* ===== Player Spotify ===== */
+    #spotifyPlayer {
+      display: none;
+      margin-top: 15px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    @media (max-width: 500px) {
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Luiz e Dani</h1>
+
+  <!-- Tela inicial com os 5 cards -->
+  <div class="card-container" id="cardContainer">
+    <div class="card" onclick="abrirCarta(1)">Primeiro Mês</div>
+    <div class="card" onclick="abrirCarta(2)">Segundo Mês</div>
+    <div class="card" onclick="abrirCarta(3)">Terceiro Mês</div>
+    <div class="card" onclick="abrirCarta(4)">Quarto Mês</div>
+    <div class="card" onclick="abrirCarta(5)">Quinto Mês</div>
+  </div>
+
+  <!-- Tela da carta -->
+  <div class="carta-container" id="cartaContainer">
+    <div class="carta-texto" id="textoCarta"></div>
+    <button onclick="voltar()">Voltar</button>
+  </div>
+
+
+  <script>
+    const cardContainer = document.getElementById("cardContainer");
+    const cartaContainer = document.getElementById("cartaContainer");
+    const textoCarta = document.getElementById("textoCarta");
+    const spotifyPlayer = document.getElementById("spotifyPlayer");
+    const ativarMusicaBtn = document.getElementById("ativarMusica");
+
+    const mensagens = {
+      1: `<h2>Nosso primeiro mês</h2>
+O nosso primeiro mês me marcou tanto mas tanto, foi nele que eu não sabia que ir em um mercado comprar doces com uma doce menina ia mudar minha vida e meu ano para todo o sempre, foi tão mas tão bom a primeira vez que nos vimos, nós dois tímidos, desconcertados e maravilhados com a companhia um do outro, e meu Deus como eu te achei linda, e eu disse aquele dia e digo de novo, nunca achei que seria tão bom ir comprar doces no mercado com um alguém.
+
+Depois desse primeiro dia a gente se viu no segundo, e conseguiu ser ainda melhor do que o primeiro, onde eu pude te beijar pela primeira vez, e desde lá nunca mais quis parar, nunca mais deixei de estar nas nuvens quando estou nos seus beijos e abraços, desde lá nunca mais parei de te desejar cada dia mais.
+
+Depois da segunda vez, teve a terceira e então a quarta e aí a quinta, e assim tivemos o nosso lugar favorito, as pedras, onde ali meu mundo parava, minha tristeza deixava de existir, e a única coisa que eu conseguia era te olhar e sorrir, e ali o tempo passava arrastado só pra que pudéssemos ficar lado a lado.`,
+
+      2: `<h2>Nosso segundo mês</h2>
+Aqui foi onde eu comecei a te amar, te amar, te amar, te amar e te amar cada vez mais, sem conseguir parar, foi aqui onde você me encheu de presentes, cartas e fez eu me sentir a pessoa mais amada do mundo, e foi aqui que eu pude também te encher de presentes e transbordar todo o meu amor a você.
+
+Aqui eu percebi que eu nunca fui amado, até poder ter você do meu lado, você reparava coisas em mim que quase nem eu conseguia, você me conheceu e prestou atenção em detalhes meus que estavam escondidos em um lugar que só você tem acesso, o meu coração.
+
+Hoje eu guardo e pra sempre vou guardar todos os seus presentes, porque eles são para mim todas as vezes que você pensou em mim com carinho, e me fez especial, e isso é a coisa mais única que um ser humano pode ter, e você me deu.`,
+
+      3: `<h2>Nosso terceiro mês</h2>
+Nesse mês eu já estava apaixonado, estava amando e completamente hipnotizado, estava podendo dividir o meu mundo com você e ter o seu mundo sendo dividido comigo, e nele eu compartilhei com você o meu maior medo: trazer alguém até a minha casa.
+
+E você simplesmente entrou nela como se já fosse de casa, entrou da mesma forma que entrou no meu coração — de forma pura e suave. Fez com que a coisa que eu nunca achei que iria um dia conseguir compartilhar com alguém, pudesse ser compartilhada.
+
+Foi aqui que a gente pôde se tornar um só, se desejar por inteiro, enquanto se enchia de desejo. Aqui transformávamos os dias em noites, tudo pela hipnose de estarmos lado a lado. E toda semana a gente se via, ria, sorria e redescobria o significado de alegria.`,
+
+      4: `<h2>Nosso quarto mês</h2>
+Aqui, assim como nos outros meses, já sabíamos e tínhamos a certeza de que o que tínhamos era especial. Acordávamos pensando um no outro e dormíamos pensando um no outro, cada segundo longe se tornava anos.
+
+Amávamos a companhia um do outro e queríamos ela a todo momento: íamos ao cinema juntos, jogávamos juntos, assistíamos filmes juntos. Aqui nós começamos a cada vez mais viver a vida juntos.
+
+Passamos por tempestades, nos afogamos nelas, quebramos nosso barco, reconstruímos ele, e nos sentíamos completos por saber que tínhamos um ao outro. Fomos transformando o nosso amor cada vez mais — mas nunca, nem por um segundo, deixando ele apagar.`,
+
+     5: `<h2>Nosso quinto mês</h2>
+De longe o nosso mês mais desafiador, as tempestades viraram tornados, o barco já não existia mais, era apenas uma ripa de madeira, se afogar já não era mais a exceção começou cada vez mais se tornar a regra.</p>
+
+E em meio a destroços, feridas, choros, gritos, olhamos um para o outro apenas com uma certeza, a certeza que ainda queriamos ficar, a certeza que queremos melhorar, queremos fazer dar certo, não queremos nos render a tempestades, não precisamos de barcos, não precisamos mais se afogar, pois estamos aprendendo a nadar.
+
+É aqui que começamos a dia após dia fazer a decisão mais dificil, que é se amar, pois no começo se amar não era ainda uma escolha, pois não tinha vento, tempestade e nem tornados, mas quando eles começaram a surgir, se amar e continuar se amando, ficar invés de ir embora, persistir invés de se render, começou a se tornar escolhas.</p>
+
+<p>E a cada dia você me escolhe, mesmo com tudo querendo te obrigar ao contrário, e eu faço o mesmo, e não me arrependo, e nunca vou, amei e amo cada segundo que passo com você, em mim você já se tornou eterna, escrevo tudo isso com orgulho de te amar com tudo de mim, grato por cada sorriso que você me dá, e dizendo as três palavras que eu mais amo dizer, eu te amo, feliz nossos 5 meses amor.`
+
+    };
+
+    function abrirCarta(numero) {
+      textoCarta.innerHTML = mensagens[numero];
+      cardContainer.style.display = "none";
+      cartaContainer.style.display = "flex";
+    }
+
+    function voltar() {
+      cartaContainer.style.display = "none";
+      cardContainer.style.display = "grid";
+    }
+
+    function mostrarSpotify() {
+      spotifyPlayer.style.display = "block";
+      ativarMusicaBtn.style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
